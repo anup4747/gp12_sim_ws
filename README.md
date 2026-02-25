@@ -22,10 +22,14 @@ The primary goal is to support gesture‑based teleoperation (e.g. using a smart
 
 ```bash
 sudo apt install \
-  ros-humble-ros-gz ros-humble-gz-ros2-control \
-  ros-humble-ros2-control ros-humble-ros2-controllers \
-  ros-humble-joint-state-broadcaster \
-  ros-humble-joint-trajectory-controller
+  ros-humble-ros-gz ros-humble-gz-ros2-control \\
+  ros-humble-ros2-control ros-humble-ros2-controllers \\
+  ros-humble-joint-state-broadcaster \\
+  ros-humble-joint-trajectory-controller \\
+  # Additional packages used by this workspace (not installed above)
+  ros-humble-ros-gz-bridge ros-humble-ros-gz-interfaces \\
+  ros-humble-controller-manager ros-humble-robot-state-publisher \\
+  ros-humble-xacro ros-humble-gazebo-ros-pkgs
 ```
 
 ### Workspace layout
