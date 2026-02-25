@@ -1,0 +1,88 @@
+
+# ROS 2 workspace standard ignores
+
+# Build artifacts
+build/
+install/
+log/
+
+# Colcon / ament build caches
+*.cmake
+*.make
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+*_prefix_path.cmake
+*.egg-info/
+*.pyc
+__pycache__/
+.pytest_cache/
+
+# Python
+*.py[cod]
+*.so
+*.egg
+*.eggs/
+*.egg-info/
+dist/
+eggs/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+*.manifest
+*.spec
+
+# IDE / Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.bak
+*.tmp
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# ROS 2 specific
+*.db
+*.db-shm
+*.db-wal
+rosbag2_*/  # if you record bags
+*.bag
+*.bag.active
+
+# Gazebo / Ignition files (logs, worlds, models cache)
+*.world
+*.sdf.bak
+gazebo_*/
+.ignition/
+.ignition_gui/
+~/.gz/
+~/.ignition/
+
+# Do NOT commit large binaries / meshes if they are huge
+# (if you want to include small meshes, remove these lines)
+*.stl
+*.dae
+*.obj
+*.mtl
+*.png
+*.jpg
+*.jpeg
+
+# Keep your custom urdf/ meshes if small (< few MB)
+# urdf/     # ← comment out if you want to commit them
+# meshes/   # ← comment out if you want to commit them
+
+# Personal / local configs
+*.local
+*.secret
+.env

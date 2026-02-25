@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+
+
+
+<robot name="motoman_gp12" xmlns:xacro="http://ros.org/wiki/xacro">
+    <!-- <xacro:include filename="$(find motoman_gp12_support)/urdf/gp12_macro.xacro" />
+    <xacro:motoman_gp12 prefix=""/> -->
+
+    <!-- Transmissions for ros2_control simulation -->
+<transmission name="trans_s">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_s">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_s">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="trans_l">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_l">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_l">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<!-- Repeat for joint_u, joint_r, joint_b, joint_t -->
+<!-- Example for joint_u -->
+<transmission name="trans_u">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_u">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_u">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<!-- ... add joint_r, joint_b, joint_t similarly -->
+
+
+
+<!-- ros2_control transmissions for Gazebo simulation -->
+<transmission name="trans_joint_s">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_s">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_s">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="trans_joint_l">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_l">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_l">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="trans_joint_u">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_u">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_u">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="trans_joint_r">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_r">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_r">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="trans_joint_b">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_b">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_b">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+<transmission name="trans_joint_t">
+  <type>transmission_interface/SimpleTransmission</type>
+  <joint name="joint_t">
+    <hardwareInterface>hardware_interface/PositionOnlyJointInterface</hardwareInterface>
+  </joint>
+  <actuator name="motor_t">
+    <mechanicalReduction>1</mechanicalReduction>
+  </actuator>
+</transmission>
+
+
+
+</robot>
+
+
