@@ -49,7 +49,7 @@ gp12_sim_ws/
 ### Quick start
 
 ```bash
-git clone https://github.com/anup4747/gp12-gazebo-sim.git
+git clone https://github.com/anup4747/gp12-sim-ws.git
 cd gp12-gazebo-sim
 
 rosdep install --from-paths src --ignore-src -r -y
