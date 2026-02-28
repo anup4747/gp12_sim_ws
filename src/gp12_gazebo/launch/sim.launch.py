@@ -13,7 +13,7 @@ def generate_launch_description():
 
     # Paths
     pkg_gp12_support = FindPackageShare('motoman_gp12_support')
-    pkg_gz_sim = FindPackageShare('ros_gz_sim')
+    pkg_gz_sim = FindPackageShare('gp12_gazebo')
     pkg_gp12_gazebo = FindPackageShare('gp12_gazebo')
 
     # Robot description (load official xacro)
@@ -26,7 +26,7 @@ def generate_launch_description():
     # Gazebo launch
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
-            PathJoinSubstitution([pkg_gz_sim, 'launch', 'gz_sim.launch.py'])
+            PathJoinSubstitution([pkg_gz_sim, 'launch', 'sim.launch.py'])
         ]),
         launch_arguments={'gz_args': ' -r -v 4 empty.sdf'}.items()
     )
