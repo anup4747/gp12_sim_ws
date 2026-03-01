@@ -6,19 +6,24 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
 
     arm_controller:
-      type: joint_trajectory_controller/JointTrajectoryController
+      type: joint_trajectory_controller/JointTrajectoryController   # or effort_controllers/JointGroupEffortController, etc.
 
 arm_controller:
   ros__parameters:
     joints:
-      - joint_s
-      - joint_l
-      - joint_u
-      - joint_r
-      - joint_b
-      - joint_t
+      - joint_1_s
+      - joint_2_l
+      - joint_3_u
+      - joint_4_r
+      - joint_5_b
+      - joint_6_t
+
     command_interfaces:
-      - position
+      - effort   # must match what you defined in <command_interface>
+
     state_interfaces:
       - position
       - velocity
+      - effort
+
+    # gains / pid if using position → effort internal conversion

@@ -5,6 +5,11 @@
 
     <!-- link list -->
     <link name="${prefix}base_link">
+        <inertial>
+            <mass value="15.0"/>  <!-- guess – adjust based on real robot if possible -->
+            <origin xyz="0 0 0.15" rpy="0 0 0"/>  <!-- rough CoM along link -->
+            <inertia ixx="0.5" ixy="0" ixz="0" iyy="0.5" iyz="0" izz="0.1"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_base_link.stl"/>
@@ -97,6 +102,7 @@
     </link>
     <!-- end of link list -->
 
+   
     <!-- joint list -->
     <joint name="${prefix}joint_1_s" type="revolute">
         <parent link="${prefix}base_link"/>
@@ -140,31 +146,84 @@
         <axis xyz="-1 0 0" />
         <limit lower="-7.9412" upper="7.9412" effort="33.30" velocity="12.2143"/>
     </joint>
+
+
+     <ros2_control name="GP12System" type="system">
+      <hardware>
+        <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+      </hardware>
+
+        <joint name="${prefix}joint_1_s">
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <joint name="${prefix}joint_2_l">
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <joint name="${prefix}joint_3_u">
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <joint name="${prefix}joint_4_r">
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <joint name="${prefix}joint_5_b">
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+        <joint name="${prefix}joint_6_t">
+            <command_interface name="effort"/>
+            <state_interface name="position"/>
+            <state_interface name="velocity"/>
+            <state_interface name="effort"/>
+        </joint>
+    </ros2_control>
+
     <!-- end of joint list -->
 
+
     <!-- ROS base_link to Robot Manufacturer World Coordinates transform -->
-    <link name="${prefix}base" />
+    <!-- <link name="${prefix}base" />
     <joint name="${prefix}base_link-base" type="fixed">
         <origin xyz="0 0 0.450" rpy="0 0 0"/>
         <parent link="${prefix}base_link"/>
         <child link="${prefix}base"/>
-    </joint>
+    </joint> -->
 
     <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
-    <link name="${prefix}flange"/>
+    <!-- <link name="${prefix}flange"/>
     <joint name="${prefix}joint_6_t-flange" type="fixed">
       <origin xyz="0.100 0 0" rpy="0 0 0"/>
       <parent link="${prefix}link_6_t"/>
       <child link="${prefix}flange"/>
-    </joint>
+    </joint> -->
 
     <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
-    <link name="${prefix}tool0"/>
+    <!-- <link name="${prefix}tool0"/>
     <joint name="${prefix}flange-tool0" type="fixed">
       <origin xyz="0 0 0" rpy="3.1415926 -1.570796 0"/>
       <parent link="${prefix}flange"/>
       <child link="${prefix}tool0"/>
-    </joint>
+    </joint> -->
+
+    <gazebo>
+      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        <parameters>$(find gp12_gazebo)/config/gp12_controllers.yaml</parameters>
+      </plugin>
+    </gazebo>
+
 
     </xacro:macro>
 </robot>
