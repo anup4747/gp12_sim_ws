@@ -70,7 +70,7 @@ gazebo_*/
 
 # Do NOT commit large binaries / meshes if they are huge
 # (if you want to include small meshes, remove these lines)
-*.stl
+# *.stl
 *.dae
 *.obj
 *.mtl
