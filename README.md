@@ -74,8 +74,7 @@ git clone https://github.com/anup4747/gp12-sim-ws.git
 cd gp12-sim-ws
 
 rosdep install --from-paths src --ignore-src -r -y
-colcon build --symlink-install
+colcon build --packages-select gp12_gazebo --symlink-install
 source install/setup.bash
-
 ros2 launch gp12_gazebo sim.launch.py
 ```

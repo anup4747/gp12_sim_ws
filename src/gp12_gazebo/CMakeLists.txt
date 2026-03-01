@@ -51,6 +51,11 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}/config
 )
 
+install(DIRECTORY 
+  meshes/
+  DESTINATION share/${PROJECT_NAME}/meshes
+)
+
 # If you add rviz configs later, do the same for them
 # install(DIRECTORY rviz/ DESTINATION share/${PROJECT_NAME}/rviz)
 
