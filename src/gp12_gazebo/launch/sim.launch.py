@@ -75,21 +75,30 @@ def generate_launch_description():
     )
 
     # ── ros2_control_node (optional but recommended for Humble + separate CM) ───
-    # controller_manager = Node(
-    #     package='controller_manager',
-    #     executable='ros2_control_node',
-    #     parameters=[
-    #         {'robot_description': ParameterValue(robot_description_content, value_type=str)},
-    #         PathJoinSubstitution([pkg_gp12_gazebo, 'config', 'gp12_controllers.yaml'])
-    #     ],
-    #     output='both'
-    # )
+    controller_manager = Node(
+        package='controller_manager',
+        executable='ros2_control_node',
+        name='controller_manager',  # give it a name
+        namespace='/',              # ensure namespace is root
+        parameters=[
+            {'robot_description': ParameterValue(robot_description_content, value_type=str)},
+            PathJoinSubstitution([pkg_gp12_gazebo, 'config', 'gp12_controllers.yaml'])
+        ],
+        remappings=[
+            ('robot_description', 'robot_description')  # explicit
+        ],
+        output='both'
+    )
 
     # ── Load controllers (spawners) ─────────────────────────────────────────────
     load_joint_state_broadcaster = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['joint_state_broadcaster', '--controller-manager', '/controller_manager'],
+        arguments=[
+            'joint_state_broadcaster',
+            '--controller-manager', '/controller_manager',
+            '--param-file', PathJoinSubstitution([pkg_gp12_gazebo, 'config', 'gp12_controllers.yaml'])
+        ],
         parameters=[{'use_sim_time': use_sim_time}],
         output='screen'
     )
@@ -97,7 +106,11 @@ def generate_launch_description():
     load_arm_controller = Node(
         package='controller_manager',
         executable='spawner',
-        arguments=['arm_controller', '--controller-manager', '/controller_manager'],
+        arguments=[
+            'arm_controller',
+            '--controller-manager', '/controller_manager',
+            '--param-file', PathJoinSubstitution([pkg_gp12_gazebo, 'config', 'gp12_controllers.yaml'])
+        ],
         parameters=[{'use_sim_time': use_sim_time}],
         output='screen'
     )
@@ -124,5 +137,6 @@ def generate_launch_description():
         #     actions=[load_arm_controller]
         # ),
         load_joint_state_broadcaster,
-        load_arm_controller
+        load_arm_controller,
+        controller_manager
     ])

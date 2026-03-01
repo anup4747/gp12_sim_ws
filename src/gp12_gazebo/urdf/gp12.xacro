@@ -3,6 +3,17 @@
 <robot name="motoman_gp12" xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:include filename="$(find gp12_gazebo)/urdf/gp12_macro.xacro" />
     <xacro:motoman_gp12 prefix=""/>
+
+
+    <gazebo>
+      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+        
+        <robotNamespace>/</robotNamespace>
+        <verbose>true</verbose>   
+        <!-- <parameters>$(find gp12_gazebo)/config/gp12_controllers.yaml</parameters> -->
+
+      </plugin>
+    </gazebo>
 </robot>
 
 

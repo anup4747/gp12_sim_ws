@@ -19,8 +19,9 @@ arm_controller:
       - joint_6_t
 
     command_interfaces:
-      - effort   # must match what you defined in <command_interface>
-
+      - position   # ← most common for trajectory controller (it outputs position → plugin converts to effort)
+      # or - effort if using effort controller
+      
     state_interfaces:
       - position
       - velocity
