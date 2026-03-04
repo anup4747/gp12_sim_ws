@@ -74,22 +74,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    # ── ros2_control_node (optional but recommended for Humble + separate CM) ───
-    controller_manager = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        name='controller_manager',  # give it a name
-        namespace='/',              # ensure namespace is root
-        parameters=[
-            {'robot_description': ParameterValue(robot_description_content, value_type=str)},
-            PathJoinSubstitution([pkg_gp12_gazebo, 'config', 'gp12_controllers.yaml'])
-        ],
-        remappings=[
-            ('robot_description', 'robot_description')  # explicit
-        ],
-        output='both'
-    )
-
     # ── Load controllers (spawners) ─────────────────────────────────────────────
     load_joint_state_broadcaster = Node(
         package='controller_manager',
@@ -128,15 +112,12 @@ def generate_launch_description():
         gazebo,
         robot_state_publisher,
         spawn_entity,
-        # TimerAction(
-        #     period=5.0,
-        #     actions=[load_joint_state_broadcaster]
-        # ),
-        # TimerAction(
-        #     period=6.0,
-        #     actions=[load_arm_controller]
-        # ),
-        load_joint_state_broadcaster,
-        load_arm_controller,
-        controller_manager
+        TimerAction(
+            period=5.0,
+            actions=[load_joint_state_broadcaster]
+        ),
+        TimerAction(
+            period=6.0,
+            actions=[load_arm_controller]
+        ),
     ])

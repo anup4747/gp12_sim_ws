@@ -10,7 +10,7 @@
         
         <robotNamespace>/</robotNamespace>
         <verbose>true</verbose>   
-        <!-- <parameters>$(find gp12_gazebo)/config/gp12_controllers.yaml</parameters> -->
+        <parameters>$(find gp12_gazebo)/config/gp12_controllers.yaml</parameters>
 
       </plugin>
     </gazebo>
