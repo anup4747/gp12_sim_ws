@@ -23,6 +23,11 @@
         </collision>
     </link>
     <link name="${prefix}link_1_s">
+        <inertial>
+            <mass value="20.0"/>  <!-- guess -->
+            <origin xyz="0.08 0 0" rpy="0 0 0"/>  <!-- rough CoM -->
+            <inertia ixx="0.5" ixy="0" ixz="0" iyy="0.5" iyz="0" izz="0.1"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_link_1_s.stl"/>
@@ -36,6 +41,11 @@
         </collision>
     </link>
     <link name="${prefix}link_2_l">
+        <inertial>
+            <mass value="40.0"/>  <!-- guess -->
+            <origin xyz="0 0 0.307" rpy="0 0 0"/>  <!-- rough CoM -->
+            <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="0.2"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_link_2_l.stl"/>
@@ -49,6 +59,11 @@
         </collision>
     </link>
     <link name="${prefix}link_3_u">
+        <inertial>
+            <mass value="35.0"/>  <!-- guess -->
+            <origin xyz="0.32 0 0.1" rpy="0 0 0"/>  <!-- rough CoM -->
+            <inertia ixx="1.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="0.2"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_link_3_u.stl"/>
@@ -62,6 +77,11 @@
         </collision>
     </link>
     <link name="${prefix}link_4_r">
+        <inertial>
+            <mass value="20.0"/>  <!-- guess -->
+            <origin xyz="0 0 0" rpy="0 0 0"/>  <!-- rough CoM -->
+            <inertia ixx="0.5" ixy="0" ixz="0" iyy="0.5" iyz="0" izz="0.1"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_link_4_r.stl"/>
@@ -75,6 +95,11 @@
         </collision>
     </link>
     <link name="${prefix}link_5_b">
+        <inertial>
+            <mass value="15.0"/>  <!-- guess -->
+            <origin xyz="0 0 0" rpy="0 0 0"/>  <!-- rough CoM -->
+            <inertia ixx="0.4" ixy="0" ixz="0" iyy="0.4" iyz="0" izz="0.1"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_link_5_b.stl"/>
@@ -88,6 +113,11 @@
         </collision>
     </link>
     <link name="${prefix}link_6_t">
+        <inertial>
+            <mass value="5.0"/>  <!-- guess -->
+            <origin xyz="0.05 0 0" rpy="0 0 0"/>  <!-- rough CoM -->
+            <inertia ixx="0.1" ixy="0" ixz="0" iyy="0.1" iyz="0" izz="0.05"/>
+        </inertial>
         <visual>
             <geometry>
                 <mesh filename="package://gp12_gazebo/meshes/visual/gp12_link_6_t.stl"/>
@@ -219,4 +249,3 @@
     </joint>
     </xacro:macro>
 </robot>
-
