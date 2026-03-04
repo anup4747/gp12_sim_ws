@@ -26,11 +26,11 @@ gp12_sim_ws/
 ├── src/
 │   ├── gp12_gazebo/              # Custom package: launches, controllers, URDF overlay
 │       ├── launch/
-│       │   └── sim.launch.py
+│       │     └── sim.launch.py
 │       ├── config/
-│       │   └── gp12_controllers.yaml
+│       │     └── gp12_controllers.yaml
 │       ├──  urdf/
-│       │   └── common_colors.xacro
+│       │     └── common_colors.xacro
 │       │     └── common_materials.xacro
 │       │     └── gp12_macro.xacro
 │       │     └── gp12.xacro
