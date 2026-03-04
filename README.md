@@ -76,5 +76,12 @@ cd gp12-sim-ws
 rosdep install --from-paths src --ignore-src -r -y
 colcon build --packages-select gp12_gazebo --symlink-install
 source install/setup.bash
+
+
+# use Gazebo
 ros2 launch gp12_gazebo sim.launch.py
+
+# or use Rviz2
+ros2 launch gp12_gazebo rviz2.launch.py
+
 ```

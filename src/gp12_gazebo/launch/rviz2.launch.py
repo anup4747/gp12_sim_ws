@@ -59,6 +59,12 @@ def generate_launch_description():
         'gp12_default.rviz'
     ])
 
+    joint_state_publisher = Node(
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui'
+    )
+
     # If you want a default config, create this file later (see note below)
 
     return LaunchDescription([
@@ -76,4 +82,5 @@ def generate_launch_description():
 
         robot_state_publisher,
         rviz_node,
+        joint_state_publisher
     ])
