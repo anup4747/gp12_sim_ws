@@ -63,7 +63,8 @@ sudo apt install -y \
   ros-humble-robot-state-publisher \
   ros-humble-xacro \
   ros-humble-ros-gz-bridge \
-  ros-humble-ros-gz-interfaces
+  ros-humble-ros-gz-interfaces \
+  ros-humble-rviz2 \
 ```
 
 
