@@ -27,6 +27,7 @@ gp12_sim_ws/
 │   ├── gp12_gazebo/              # Custom package: launches, controllers, URDF overlay
 │       ├── launch/
 │       │     └── sim.launch.py
+│       │     └── rivz2.launch.py
 │       ├── config/
 │       │     └── gp12_controllers.yaml
 │       ├──  urdf/
