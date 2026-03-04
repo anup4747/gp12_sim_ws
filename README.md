@@ -1,43 +1,58 @@
+# Yaskawa Motoman GP12 – ROS 2 Humble (RViz2 + MoveIt)
 
-# Yaskawa Motoman GP12 Gazebo Simulation in ROS 2 Humble
+ROS 2 Humble workspace for visualizing and planning motions for the **Yaskawa Motoman GP12** industrial robot arm using **RViz2** and **MoveIt**.
 
-ROS 2 Humble workspace for simulating the **Yaskawa Motoman GP12** industrial robot arm in **Gazebo Classic** (Gazebo 11) using `ros2_control` and `gazebo_ros2_control`.
+---
 
-**Current status (March 2026):**
+## Current Status (March 2026)
 
-- Robot URDF/xacro parses correctly
-- Model successfully spawns in Gazebo Classic
-- `robot_state_publisher` works and publishes `/joint_states`
-- `gazebo_ros2_control` plugin loads (partially)
-- **Issue remaining**: controller manager services (`/controller_manager/*`) are not available → spawners hang forever
+- ✅ Robot URDF/Xacro parses correctly  
+- ✅ Robot model loads in RViz2  
+- ✅ TF tree is correct (`base_link → tool0`)  
+- ✅ Ready for MoveIt configuration  
+- ❌ No Gazebo simulation  
+- ❌ No ros2_control  
+- ❌ No hardware controllers  
 
-The goal is to reach a state where joint_state_broadcaster and arm_controller are active and the robot can be commanded.
+This workspace focuses purely on:
 
-## Requirements
+> Kinematics + Visualization + Motion Planning
 
-- **Ubuntu 22.04 LTS** (Jammy Jellyfish)
-- **ROS 2 Humble** (desktop-full recommended)
+---
 
+# Requirements
+
+- Ubuntu 22.04 LTS (Jammy)
+- ROS 2 Humble (desktop-full recommended)
+
+---
+
+# Installation
+
+## 1️⃣ Install ROS 2 Humble
+
+Follow the official guide:
+
+https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
+
+---
 
 ### Workspace layout
 
 ```text
 gp12_sim_ws/
 ├── src/
-│   ├── gp12_gazebo/              # Custom package: launches, controllers, URDF overlay
+│   ├── gp12_simulation/
 │       ├── launch/
-│       │     └── sim.launch.py
-│       │     └── rivz2.launch.py
-│       ├── config/
-│       │     └── gp12_controllers.yaml
-│       ├──  urdf/
-│       │     └── common_colors.xacro
-│       │     └── common_materials.xacro
-│       │     └── gp12_macro.xacro
+│       │     └── rviz2.launch.py
+│       ├── urdf/
+│       │     ├── common_colors.xacro
+│       │     ├── common_materials.xacro
+│       │     ├── gp12_macro.xacro
 │       │     └── gp12.xacro
 │       └── meshes/
-│             └── collision
-|             └── visual
+│             ├── collision/
+│             └── visual/
 ├── .gitignore
 └── README.md
 ```
@@ -53,19 +68,11 @@ Follow official guide: https://docs.ros.org/en/humble/Installation/Ubuntu-Instal
 ```bash
 sudo apt update
 sudo apt install -y \
-  ros-humble-gazebo-ros-pkgs \
-  ros-humble-gazebo-ros2-control \
-  ros-humble-ros2-control \
-  ros-humble-ros2-controllers \
-  ros-humble-joint-state-broadcaster \
-  ros-humble-joint-trajectory-controller \
-  ros-humble-effort-controllers \
-  ros-humble-controller-manager \
-  ros-humble-robot-state-publisher \
-  ros-humble-xacro \
-  ros-humble-ros-gz-bridge \
-  ros-humble-ros-gz-interfaces \
   ros-humble-rviz2 \
+  ros-humble-robot-state-publisher \
+  ros-humble-joint-state-publisher-gui \
+  ros-humble-xacro \
+  ros-humble-moveit
 ```
 
 
@@ -76,12 +83,9 @@ git clone https://github.com/anup4747/gp12-sim-ws.git
 cd gp12-sim-ws
 
 rosdep install --from-paths src --ignore-src -r -y
-colcon build --packages-select gp12_gazebo --symlink-install
+colcon build --packages-select gp12_simulation --symlink-install
 source install/setup.bash
 
-# use Gazebo
-ros2 launch gp12_gazebo sim.launch.py
-
-# or use Rviz2
-ros2 launch gp12_gazebo rviz2.launch.py
+# Launch Rviz2
+ros2 launch gp12_simulation rviz2.launch.py
 ```

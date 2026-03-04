@@ -1,28 +1,19 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>gp12_gazebo</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="anupdtarwade@gmail.com">anup</maintainer>
-  <license>TODO: License declaration</license>
+  <name>gp12_simulation</name>
+  <version>0.1.0</version>
+  <description>URDF/Xacro description package for the Yaskawa Motoman GP12 robot (RViz2 + MoveIt).</description>
+
+  <maintainer email="anupdtarwade@gmail.com">Anup</maintainer>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>rclcpp</depend>
-  <depend>std_msgs</depend>
-  <depend>sensor_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>ros_gz_sim</depend>
-  <depend>ros_gz_bridge</depend>
-  <depend>ros_gz_interfaces</depend>
-  <depend>gz_ros2_control</depend>
-  <depend>controller_manager</depend>
-  <depend>joint_state_broadcaster</depend>
-  <depend>joint_trajectory_controller</depend>
-  <depend>robot_state_publisher</depend>
-  <depend>xacro</depend>
-  <depend>gazebo_ros</depend>
+  <!-- Runtime dependencies -->
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher_gui</exec_depend>
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>rviz2</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

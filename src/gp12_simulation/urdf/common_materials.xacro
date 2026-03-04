@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:include filename="$(find gp12_gazebo)/urdf/common_colors.xacro"/>
+  <xacro:include filename="$(find gp12_simulation)/urdf/common_colors.xacro"/>
 
   <xacro:macro name="material_yaskawa_blue">
     <material name="">
