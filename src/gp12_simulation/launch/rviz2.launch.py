@@ -12,13 +12,13 @@ def generate_launch_description():
     rviz_config_file = LaunchConfiguration('rviz_config_file', default='')
 
     # ── Package paths ───────────────────────────────────────────────────────────
-    pkg_gp12_gazebo = FindPackageShare('gp12_gazebo')
+    pkg_gp12_simulation = FindPackageShare('gp12_simulation')
 
     # ── Robot description (process xacro) ───────────────────────────────────────
     robot_description_content = Command([
         'xacro ',
         PathJoinSubstitution([
-            pkg_gp12_gazebo,
+            pkg_gp12_simulation,
             'urdf',
             'gp12.xacro'
         ]),
@@ -54,7 +54,7 @@ def generate_launch_description():
 
     # ── Optional: default RViz config if none provided ──────────────────────────
     default_rviz_config = PathJoinSubstitution([
-        pkg_gp12_gazebo,
+        pkg_gp12_simulation,
         'rviz',
         'gp12_default.rviz'
     ])
