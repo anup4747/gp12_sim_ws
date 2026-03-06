@@ -89,3 +89,9 @@ source install/setup.bash
 # Launch Rviz2
 ros2 launch gp12_simulation rviz2.launch.py
 ```
+
+### moveit setup
+
+```
+ros2 launch moveit_setup_assistant setup_assistant.launch.py
+```
