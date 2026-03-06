@@ -44,12 +44,18 @@ gp12_sim_ws/
 ├── src/
 │   ├── gp12_simulation/
 │       ├── launch/
+│       │     ├── gripper.launch.py
 │       │     └── rviz2.launch.py
 │       ├── urdf/
 │       │     ├── common_colors.xacro
 │       │     ├── common_materials.xacro
+│       │     ├── gp12_gripper.xacro
 │       │     ├── gp12_macro.xacro
-│       │     └── gp12.xacro
+│       │     ├── gp12.xacro
+│       │     ├── robotiq_2f_140_macro.xacro
+│       │     ├── robotiq_2f_140.xacro
+│       │     ├── robitiq_arg2f_transmission.xacro
+│       │     └── robotiq_arg2f.xacro
 │       └── meshes/
 │             ├── collision/
 │             └── visual/
@@ -63,7 +69,20 @@ gp12_sim_ws/
 
 Follow official guide: https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html
 
-### 2. Install core simulation packages
+### 2. Install Essential Tools & Packages
+
+```bash
+sudo apt update
+sudo apt install -y \
+  git-all \                          
+  build-essential \                
+  python3-colcon-common-extensions \
+  python3-rosdep  \   
+  python3-vcstool \     
+  ros-humble-moveit
+```
+
+### 3. Install core simulation packages
 
 ```bash
 sudo apt update
