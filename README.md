@@ -94,7 +94,6 @@ sudo apt install -y \
   ros-humble-moveit
 ```
 
-
 ### Quick start
 
 ```bash
@@ -111,6 +110,22 @@ ros2 launch gp12_simulation gp12.launch.py
 
 ### moveit setup
 
-```
+```bash
 ros2 launch moveit_setup_assistant setup_assistant.launch.py
+```
+
+### If moveit crashes
+
+Update your ROS 2 Humble packages (especially rviz2 / moveit2):
+
+```bash
+sudo apt update
+sudo apt upgrade 'ros-humble-rviz2' 'ros-humble-moveit*'
+
+```
+
+Try launching with software rendering:
+
+```bash
+LIBGL_ALWAYS_SOFTWARE=1 ros2 launch moveit_setup_assistant setup_assistant.launch.py
 ```
