@@ -2,5 +2,12 @@
 
 <robot name="motoman_gp12" xmlns:xacro="http://ros.org/wiki/xacro">
     <xacro:include filename="$(find gp12_simulation)/urdf/gp12_macro.xacro" />
+    <xacro:include filename="$(find gp12_simulation)/urdf/robotiq_2f_140.xacro" />
+
     <xacro:motoman_gp12 prefix=""/>
+
+    <!-- Attach Robotiq 2F-140 gripper to the robot tool0 frame -->
+    <xacro:robotiq_2f_140 parent="tool0" tf_prefix="">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </xacro:robotiq_2f_140>
 </robot>
