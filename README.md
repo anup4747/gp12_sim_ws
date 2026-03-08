@@ -45,7 +45,7 @@ gp12_sim_ws/
 │   ├── gp12_simulation/
 │       ├── launch/
 │       │     ├── gripper.launch.py
-│       │     └── rviz2.launch.py
+│       │     └── gp12.launch.py
 │       ├── urdf/
 │       │     ├── common_colors.xacro
 │       │     ├── common_materials.xacro
@@ -106,7 +106,7 @@ colcon build --packages-select gp12_simulation --symlink-install
 source install/setup.bash
 
 # Launch Rviz2
-ros2 launch gp12_simulation rviz2.launch.py
+ros2 launch gp12_simulation gp12.launch.py
 ```
 
 ### moveit setup

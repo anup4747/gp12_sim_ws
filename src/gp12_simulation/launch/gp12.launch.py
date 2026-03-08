@@ -84,3 +84,4 @@ def generate_launch_description():
         rviz_node,
         joint_state_publisher
     ])
+
