@@ -1,6 +1,6 @@
-# Yaskawa Motoman GP12 – ROS 2 Humble (RViz2 + MoveIt)
+# Yaskawa Motoman GP12 – ROS 2 Humble (Pink IK + Hyper IMU)
 
-ROS 2 Humble workspace for visualizing and planning motions for the **Yaskawa Motoman GP12** industrial robot arm using **RViz2** and **MoveIt**.
+ROS 2 Humble workspace for controlling the **Yaskawa Motoman GP12** industrial robot arm using **Pink IK** (based on Pinocchio) and real-time sensor data from **Hyper IMU**.
 
 ---
 
@@ -9,10 +9,9 @@ ROS 2 Humble workspace for visualizing and planning motions for the **Yaskawa Mo
 - ✅ Robot URDF/Xacro parses correctly  
 - ✅ Robot model loads in RViz2  
 - ✅ TF tree is correct (`base_link → tool0`)  
-- ✅ Ready for MoveIt configuration  
-- ❌ No Gazebo simulation  
-- ❌ No ros2_control  
-- ❌ No hardware controllers  
+- ✅ **Pink IK Integration** for real-time inverse kinematics  
+- ✅ **Hyper IMU Integration** via UDP  
+- ❌ No hardware controllers (Simulation only)  
 
 This workspace focuses purely on:
 
@@ -89,9 +88,12 @@ sudo apt update
 sudo apt install -y \
   ros-humble-rviz2 \
   ros-humble-robot-state-publisher \
-  ros-humble-joint-state-publisher-gui \
-  ros-humble-xacro \
-  ros-humble-moveit
+  ros-humble-xacro
+```
+
+### 4. Install Pink and Pinocchio
+```bash
+pip install pink pinocchio
 ```
 
 ### Quick start
@@ -104,15 +106,19 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --packages-select gp12_simulation --symlink-install
 source install/setup.bash
 
-# Launch Rviz2
-ros2 launch gp12_simulation gp12.launch.py
+# Launch the Pink IK system
+ros2 launch gp12_simulation gp12_pink.launch.py
 ```
 
-### moveit setup
+### Hyper IMU Configuration
+1. Open Hyper IMU on your mobile device.
+2. Set protocol to **UDP**.
+3. Set target IP to your computer's IP address.
+4. Set port to **5555**.
+5. Enable **CSV** format.
+6. Start the stream.
 
-```bash
-ros2 launch moveit_setup_assistant setup_assistant.launch.py
-```
+The robot in RViz will now follow the coordinates/orientation sent by your mobile device.
 
 ### If moveit crashes
 
