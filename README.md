@@ -1,6 +1,6 @@
-# Yaskawa Motoman GP12 – ROS 2 Humble (Pink IK + Hyper IMU)
+# Yaskawa Motoman GP12 – ROS 2 Humble Simulation
 
-ROS 2 Humble workspace for controlling the **Yaskawa Motoman GP12** industrial robot arm using **Pink IK** (based on Pinocchio) and real-time sensor data from **Hyper IMU**.
+ROS 2 Humble workspace for visualizing and experimenting with the **Yaskawa Motoman GP12** industrial robot arm in simulation.
 
 ---
 
@@ -9,11 +9,9 @@ ROS 2 Humble workspace for controlling the **Yaskawa Motoman GP12** industrial r
 - ✅ Robot URDF/Xacro parses correctly  
 - ✅ Robot model loads in RViz2  
 - ✅ TF tree is correct (`base_link → tool0`)  
-- ✅ **Pink IK Integration** for real-time inverse kinematics  
-- ✅ **Hyper IMU Integration** via UDP  
 - ❌ No hardware controllers (Simulation only)  
 
-This workspace focuses purely on:
+This workspace focuses on:
 
 > Kinematics + Visualization + Motion Planning
 
@@ -91,11 +89,6 @@ sudo apt install -y \
   ros-humble-xacro
 ```
 
-### 4. Install Pink and Pinocchio
-```bash
-pip install pink pinocchio
-```
-
 ### Quick start
 
 ```bash
@@ -106,19 +99,8 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --packages-select gp12_simulation --symlink-install
 source install/setup.bash
 
-# Launch the Pink IK system
-ros2 launch gp12_simulation gp12_pink.launch.py
+ros2 launch gp12_simulation gp12.launch.py
 ```
-
-### Hyper IMU Configuration
-1. Open Hyper IMU on your mobile device.
-2. Set protocol to **UDP**.
-3. Set target IP to your computer's IP address.
-4. Set port to **5555**.
-5. Enable **CSV** format.
-6. Start the stream.
-
-The robot in RViz will now follow the coordinates/orientation sent by your mobile device.
 
 ### If moveit crashes
 

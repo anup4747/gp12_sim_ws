@@ -13,12 +13,6 @@ install(DIRECTORY
   DESTINATION share/${PROJECT_NAME}/launch
 )
 
-# Install scripts
-install(PROGRAMS
-  scripts/pink_ik_node.py
-  DESTINATION lib/${PROJECT_NAME}
-)
-
 # Install URDF/Xacro files
 install(DIRECTORY
   urdf/
