@@ -7,6 +7,13 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
+# Install Python scripts (nodes)
+install(PROGRAMS
+  scripts/script.py
+  scripts/pink_ik_node.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 # Install launch files
 install(DIRECTORY
   launch/
