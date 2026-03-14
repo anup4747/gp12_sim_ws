@@ -204,21 +204,48 @@
     <limit effort="33.30" lower="-7.9412" upper="7.9412" velocity="12.2143"/>
   </joint>
   <!-- ROS base_link to Robot Manufacturer World Coordinates transform -->
-  <link name="base"/>
+  <link name="base">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.12941176470588237 0.14901960784313725 0.7490196078431373 1.0"/>
+      </material>
+    </visual>
+  </link>
   <joint name="base_link-base" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0.450"/>
     <parent link="base_link"/>
     <child link="base"/>
   </joint>
   <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
-  <link name="flange"/>
+  <link name="flange">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.12941176470588237 0.14901960784313725 0.7490196078431373 1.0"/>
+      </material>
+    </visual>
+  </link>
   <joint name="joint_6_t-flange" type="fixed">
     <origin rpy="0 0 0" xyz="0.100 0 0"/>
     <parent link="link_6_t"/>
     <child link="flange"/>
   </joint>
   <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
-  <link name="tool0"/>
+  <link name="tool0">
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.12941176470588237 0.14901960784313725 0.7490196078431373 1.0"/>
+      </material>
+    </visual>
+  </link>
   <joint name="flange-tool0" type="fixed">
     <origin rpy="3.1415926 -1.570796 0" xyz="0 0 0"/>
     <parent link="flange"/>

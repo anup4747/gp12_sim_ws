@@ -179,7 +179,12 @@
 
 
     <!-- ROS base_link to Robot Manufacturer World Coordinates transform -->
-    <link name="${prefix}base" />
+    <link name="${prefix}base">
+        <visual>
+            <geometry><box size="0.01 0.01 0.01"/></geometry>
+            <xacro:material_yaskawa_blue/>
+        </visual>
+    </link>
     <joint name="${prefix}base_link-base" type="fixed">
         <origin xyz="0 0 0.450" rpy="0 0 0"/>
         <parent link="${prefix}base_link"/>
@@ -187,7 +192,12 @@
     </joint>
 
     <!-- ROS-Industrial 'flange' frame: attachment point for EEF models -->
-    <link name="${prefix}flange"/>
+    <link name="${prefix}flange">
+        <visual>
+            <geometry><box size="0.01 0.01 0.01"/></geometry>
+            <xacro:material_yaskawa_blue/>
+        </visual>
+    </link>
     <joint name="${prefix}joint_6_t-flange" type="fixed">
       <origin xyz="0.100 0 0" rpy="0 0 0"/>
       <parent link="${prefix}link_6_t"/>
@@ -195,7 +205,12 @@
     </joint>
 
     <!-- ROS-Industrial 'tool0' frame: all-zeros tool frame -->
-    <link name="${prefix}tool0"/>
+    <link name="${prefix}tool0">
+        <visual>
+            <geometry><box size="0.01 0.01 0.01"/></geometry>
+            <xacro:material_yaskawa_blue/>
+        </visual>
+    </link>
     <joint name="${prefix}flange-tool0" type="fixed">
       <origin xyz="0 0 0" rpy="3.1415926 -1.570796 0"/>
       <parent link="${prefix}flange"/>

@@ -102,18 +102,12 @@ source install/setup.bash
 ros2 launch gp12_simulation gp12.launch.py
 ```
 
-### If moveit crashes
+### MoveIt Configuration
 
-Update your ROS 2 Humble packages (especially rviz2 / moveit2):
+For detailed instructions on how to generate the URDF and configure MoveIt using the Setup Assistant, please refer to:
 
-```bash
-sudo apt update
-sudo apt upgrade 'ros-humble-rviz2' 'ros-humble-moveit*'
-
-```
-
-Try launching with software rendering:
-
-```bash
-LIBGL_ALWAYS_SOFTWARE=1 ros2 launch moveit_setup_assistant setup_assistant.launch.py
-```
+👉 **[MoveIt Setup Guide](moveit_setup.md)**
+</think>
+Regenerating the URDF from the updated xacro and marking the todo complete.
+<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
+Shell
