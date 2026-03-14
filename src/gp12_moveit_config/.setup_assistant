@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: gp12_simulation
+    relative_path: urdf/gp12.urdf
+  srdf:
+    relative_path: config/motoman_gp12.srdf
+  package_settings:
+    author_name: anup
+    author_email: anupdtarwade@gmail.com
+    generated_timestamp: 1773485101
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
