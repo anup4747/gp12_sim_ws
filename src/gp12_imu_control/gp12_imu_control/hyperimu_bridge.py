@@ -69,13 +69,13 @@ class HyperIMUBridge(Node):
                     # Take last 6 values in case there's an ID or timestamp prefix
                     offset = len(parts) - 6
                     
-                    ax = float(parts[offset + 0])
-                    ay = float(parts[offset + 1])
-                    az = float(parts[offset + 2])
+                    rx = float(parts[offset + 0])
+                    ry = float(parts[offset + 1])
+                    rz = float(parts[offset + 2])
                     
-                    rx = float(parts[offset + 3])
-                    ry = float(parts[offset + 4])
-                    rz = float(parts[offset + 5])
+                    ax = float(parts[offset + 3])
+                    ay = float(parts[offset + 4])
+                    az = float(parts[offset + 5])
                     
                     # Convert Android rotation vector to quaternion
                     qx, qy, qz, qw = self.rotation_vector_to_quaternion(rx, ry, rz)

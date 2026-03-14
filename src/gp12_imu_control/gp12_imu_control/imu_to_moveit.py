@@ -40,7 +40,7 @@ class ImuToMoveitNode(Node):
         self.get_logger().info('/move_action server is ready.')
 
         # Target link and group name
-        self.planning_group = "arm"
+        self.planning_group = "gp12_arm"
         self.end_effector_link = "tool0"
         
         # State tracking
