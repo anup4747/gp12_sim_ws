@@ -1,6 +1,6 @@
-# Yaskawa Motoman GP12 – ROS 2 Humble (RViz2 + MoveIt)
+# Yaskawa Motoman GP12 – ROS 2 Humble Simulation
 
-ROS 2 Humble workspace for visualizing and planning motions for the **Yaskawa Motoman GP12** industrial robot arm using **RViz2** and **MoveIt**.
+ROS 2 Humble workspace for visualizing and experimenting with the **Yaskawa Motoman GP12** industrial robot arm in simulation.
 
 ---
 
@@ -9,12 +9,9 @@ ROS 2 Humble workspace for visualizing and planning motions for the **Yaskawa Mo
 - ✅ Robot URDF/Xacro parses correctly  
 - ✅ Robot model loads in RViz2  
 - ✅ TF tree is correct (`base_link → tool0`)  
-- ✅ Ready for MoveIt configuration  
-- ❌ No Gazebo simulation  
-- ❌ No ros2_control  
-- ❌ No hardware controllers  
+- ❌ No hardware controllers (Simulation only)  
 
-This workspace focuses purely on:
+This workspace focuses on:
 
 > Kinematics + Visualization + Motion Planning
 
@@ -89,9 +86,7 @@ sudo apt update
 sudo apt install -y \
   ros-humble-rviz2 \
   ros-humble-robot-state-publisher \
-  ros-humble-joint-state-publisher-gui \
-  ros-humble-xacro \
-  ros-humble-moveit
+  ros-humble-xacro
 ```
 
 ### Quick start
@@ -104,28 +99,15 @@ rosdep install --from-paths src --ignore-src -r -y
 colcon build --packages-select gp12_simulation --symlink-install
 source install/setup.bash
 
-# Launch Rviz2
 ros2 launch gp12_simulation gp12.launch.py
 ```
 
-### moveit setup
+### MoveIt Configuration
 
-```bash
-ros2 launch moveit_setup_assistant setup_assistant.launch.py
-```
+For detailed instructions on how to generate the URDF and configure MoveIt using the Setup Assistant, please refer to:
 
-### If moveit crashes
-
-Update your ROS 2 Humble packages (especially rviz2 / moveit2):
-
-```bash
-sudo apt update
-sudo apt upgrade 'ros-humble-rviz2' 'ros-humble-moveit*'
-
-```
-
-Try launching with software rendering:
-
-```bash
-LIBGL_ALWAYS_SOFTWARE=1 ros2 launch moveit_setup_assistant setup_assistant.launch.py
-```
+👉 **[MoveIt Setup Guide](moveit_setup.md)**
+</think>
+Regenerating the URDF from the updated xacro and marking the todo complete.
+<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
+Shell

@@ -6,8 +6,8 @@
 
     <xacro:motoman_gp12 prefix=""/>
 
-    <!-- Attach Robotiq 2F-140 gripper to the robot tool0 frame -->
+    <!-- attach gripper -->
     <xacro:robotiq_2f_140 parent="tool0" tf_prefix="">
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
     </xacro:robotiq_2f_140>
 </robot>
