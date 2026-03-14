@@ -103,10 +103,13 @@ class ImuToMoveitNode(Node):
         self.action_in_progress = True
         goal_msg = MoveGroup.Goal()
         
+        # Tell MoveIt to use the current robot state as the start state
+        goal_msg.request.start_state.is_diff = True
+        
         # Set planning group
         goal_msg.request.group_name = self.planning_group
         goal_msg.request.num_planning_attempts = 1
-        goal_msg.request.allowed_planning_time = 0.5
+        goal_msg.request.allowed_planning_time = 1.0
         goal_msg.request.max_velocity_scaling_factor = 0.5
         goal_msg.request.max_acceleration_scaling_factor = 0.5
         
@@ -127,21 +130,29 @@ class ImuToMoveitNode(Node):
         
         primitive = SolidPrimitive()
         primitive.type = SolidPrimitive.SPHERE
-        primitive.dimensions = [0.05] # 5cm tolerance box
+        primitive.dimensions = [0.1] # 10cm tolerance box to allow some wiggle room for IK
         
         pc.target_point_offset.x = 0.0
         pc.target_point_offset.y = 0.0
         pc.target_point_offset.z = 0.0
         
         pc.constraint_region.primitives.append(primitive)
-        pc.constraint_region.primitive_poses.append(target_pose.pose) # target position center
+        pc.constraint_region.primitive_poses.append(target_pose.pose)
         pc.weight = 1.0
         
         constraint = Constraints()
+        constraint.name = "imu_target"
         constraint.orientation_constraints.append(oc)
         constraint.position_constraints.append(pc)
         
         goal_msg.request.workspace_parameters.header.frame_id = "base_link"
+        goal_msg.request.workspace_parameters.min_corner.x = -2.0
+        goal_msg.request.workspace_parameters.min_corner.y = -2.0
+        goal_msg.request.workspace_parameters.min_corner.z = -2.0
+        goal_msg.request.workspace_parameters.max_corner.x = 2.0
+        goal_msg.request.workspace_parameters.max_corner.y = 2.0
+        goal_msg.request.workspace_parameters.max_corner.z = 2.0
+        
         goal_msg.request.goal_constraints.append(constraint)
         
         self.get_logger().info(f"Sending goal targeting orientation {target_pose.pose.orientation}")
