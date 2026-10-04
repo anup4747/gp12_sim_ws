@@ -7,8 +7,8 @@ This guide specifically covers how to set up and configure MoveIt for the Motoma
 First, ensure your workspace is built and the environment is sourced.
 
 ```bash
-cd ~/Desktop/ArmStrong/gp12_sim_ws
-colcon build --packages-select gp12_simulation --symlink-install
+cd ~/gp12_sim_ws
+colcon build
 source install/setup.bash
 ```
 

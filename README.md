@@ -88,6 +88,12 @@ sudo apt install -y \
   ros-humble-robot-state-publisher \
   ros-humble-xacro
 ```
+### 4. Install moveit2 servo simulation packages
+
+```bash
+See [moveit2_Servo_installation.md](moveit2_Servo_installation.md)
+```
+
 
 ### Quick start
 
@@ -107,7 +113,3 @@ ros2 launch gp12_simulation gp12.launch.py
 For detailed instructions on how to generate the URDF and configure MoveIt using the Setup Assistant, please refer to:
 
 👉 **[MoveIt Setup Guide](moveit_setup.md)**
-</think>
-Regenerating the URDF from the updated xacro and marking the todo complete.
-<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
-Shell
