@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot name="robotiq_test" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- include gripper -->
+  <xacro:include filename="$(find gp12_simulation)/urdf/robotiq_2f_140.xacro"/>
+
+  <!-- world -->
+  <link name="world"/>
+
+  <!-- mount link -->
+  <link name="tool0"/>
+
+  <!-- world -> tool0 -->
+  <joint name="world_joint" type="fixed">
+    <parent link="world"/>
+    <child link="tool0"/>
+  </joint>
+
+  <!-- attach gripper -->
+  <xacro:robotiq_2f_140 parent="tool0" tf_prefix="">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:robotiq_2f_140>
+
+</robot>

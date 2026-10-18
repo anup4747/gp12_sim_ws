@@ -75,6 +75,7 @@
     <disable_collisions link1="left_inner_finger_pad" link2="link_5_b" reason="Never"/>
     <disable_collisions link1="left_inner_finger_pad" link2="link_6_t" reason="Never"/>
     <disable_collisions link1="left_inner_finger_pad" link2="right_inner_finger" reason="Never"/>
+    <disable_collisions link1="left_inner_finger_pad" link2="right_inner_finger_pad" reason="Never"/>
     <disable_collisions link1="left_inner_finger_pad" link2="right_inner_knuckle" reason="Never"/>
     <disable_collisions link1="left_inner_finger_pad" link2="right_outer_finger" reason="Never"/>
     <disable_collisions link1="left_inner_finger_pad" link2="right_outer_knuckle" reason="Never"/>
