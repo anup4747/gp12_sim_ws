@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Include the gripper macro implementation -->
+  <xacro:include filename="$(find gp12_simulation)/urdf/robotiq_2f_140_macro.xacro"/>
+
+  <!-- Macro that attaches gripper to a parent link -->
+  <xacro:macro name="robotiq_2f_140" params="parent tf_prefix *origin">
+
+    <!-- Fixed joint attaching gripper -->
+    <joint name="${tf_prefix}robotiq_2f_gripper_fix" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${tf_prefix}${parent}"/>
+      <child link="${tf_prefix}robotiq_arg2f_base_link"/>
+    </joint>
+
+    <!-- Instantiate gripper model -->
+    <xacro:robotiq_arg2f_140 prefix="${tf_prefix}"/>
+
+  </xacro:macro>
+
+</robot>
