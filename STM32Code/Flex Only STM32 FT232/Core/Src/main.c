@@ -41,6 +41,7 @@
 #define TELEMETRY_INTERVAL_MS 200U
 #define MCP2515_CAN_ID_QUATERNION 0x100U
 #define MCP2515_CAN_ID_FLEX 0x101U
+#define MCP2515_CAN_ID_ACCELERATION 0x102U
 #define MCP2515_SPI_TIMEOUT_MS 10U
 #define MCP2515_MODE_TIMEOUT_MS 100U
 /* USER CODE END PD */
@@ -64,15 +65,19 @@ UART_HandleTypeDef huart3;
 /* ADC raw value (12-bit: 0–4095) */
 static uint32_t adc_raw = 0;
 
-/* Transmit buffer for flex readings and quaternion telemetry */
-static char tx_buf[192];
+/* Transmit buffer for flex, quaternion, and acceleration telemetry */
+static char tx_buf[256];
 
 static volatile uint8_t bno_reset_seen;
 static volatile uint8_t quat_valid;
+static volatile uint8_t accel_valid;
 static volatile float quat_i;
 static volatile float quat_j;
 static volatile float quat_k;
 static volatile float quat_real = 1.0f;
+static volatile float accel_x;
+static volatile float accel_y;
+static volatile float accel_z;
 static uint8_t bno_connected;
 static uint8_t mcp2515_ready;
 
@@ -89,6 +94,7 @@ static void MX_SPI1_Init(void);
 static void BNO085_EventCallback(void *cookie, sh2_AsyncEvent_t *event);
 static void BNO085_SensorCallback(void *cookie, sh2_SensorEvent_t *event);
 static void FormatQuatComponent(char *buffer, size_t buffer_len, float value);
+static void FormatAccelComponent(char *buffer, size_t buffer_len, float value);
 static uint8_t MCP2515_Init(void);
 static uint8_t MCP2515_SetMode(uint8_t mode);
 static HAL_StatusTypeDef MCP2515_ReadRegister(uint8_t address, uint8_t *value);
@@ -133,6 +139,7 @@ static void BNO085_EventCallback(void *cookie, sh2_AsyncEvent_t *event)
   if (event != NULL && event->eventId == SH2_RESET)
   {
     quat_valid = 0U;
+    accel_valid = 0U;
     bno_reset_seen = 1U;
   }
 }
@@ -143,9 +150,21 @@ static void BNO085_SensorCallback(void *cookie, sh2_SensorEvent_t *event)
 
   (void)cookie;
 
-  if (event == NULL ||
-      sh2_decodeSensorEvent(&value, event) != SH2_OK ||
-      value.sensorId != SH2_ROTATION_VECTOR)
+  if (event == NULL || sh2_decodeSensorEvent(&value, event) != SH2_OK)
+  {
+    return;
+  }
+
+  if (value.sensorId == SH2_ACCELEROMETER)
+  {
+    accel_x = value.un.accelerometer.x;
+    accel_y = value.un.accelerometer.y;
+    accel_z = value.un.accelerometer.z;
+    accel_valid = 1U;
+    return;
+  }
+
+  if (value.sensorId != SH2_ROTATION_VECTOR)
   {
     return;
   }
@@ -169,6 +188,20 @@ static void FormatQuatComponent(char *buffer, size_t buffer_len, float value)
 
   snprintf(buffer, buffer_len, "%s%ld.%04ld", sign,
            (long)(scaled / 10000), (long)(scaled % 10000));
+}
+
+static void FormatAccelComponent(char *buffer, size_t buffer_len, float value)
+{
+  int32_t scaled = (int32_t)(value * 100.0f);
+  const char *sign = (scaled < 0) ? "-" : " ";
+
+  if (scaled < 0)
+  {
+    scaled = -scaled;
+  }
+
+  snprintf(buffer, buffer_len, "%s%ld.%02ld", sign,
+           (long)(scaled / 100), (long)(scaled % 100));
 }
 
 #define MCP2515_CMD_RESET 0xC0U
@@ -365,6 +398,11 @@ static int16_t MCP2515_ScaleQuaternion(float value)
   return (int16_t)(value * 10000.0f);
 }
 
+static int16_t MCP2515_ScaleAcceleration(float value)
+{
+  return (int16_t)(value * 100.0f);
+}
+
 static void MCP2515_StoreInt16LE(uint8_t *data, int16_t value)
 {
   uint16_t bits = (uint16_t)value;
@@ -413,7 +451,7 @@ int main(void)
    * Startup banner sent over UART to the PC (via FT232).
    * Open any serial terminal at 115200-8-N-1 to see output.
    * ----------------------------------------------------------- */
-  UART_Print("\r\n=== STM32F405 Flex Sensor & BNO085 Quaternion ===\r\n");
+  UART_Print("\r\n=== STM32F405 Flex Sensor & BNO085 Telemetry ===\r\n");
   UART_Print("ADC: PC4 (CH14) | USART3: PB10/PB11 | 115200-8-N-1\r\n");
   UART_Print("BNO085 I2C1: PB8(SCL), PB9(SDA), INT: PC0, RST: PC1, addr: 0x4B\r\n");
 
@@ -439,7 +477,7 @@ int main(void)
   else
   {
     bno_connected = 1U;
-    UART_Print("BNO085: connected; waiting for reset event and quaternion data\r\n");
+    UART_Print("BNO085: connected; waiting for reset event and sensor data\r\n");
   }
 
   /* USER CODE END 2 */
@@ -463,6 +501,10 @@ int main(void)
         {
           UART_Print("BNO085: failed to enable Rotation Vector report\r\n");
         }
+        if (sh2_setSensorConfig(SH2_ACCELEROMETER, &config) != SH2_OK)
+        {
+          UART_Print("BNO085: failed to enable Accelerometer report\r\n");
+        }
       }
     }
 
@@ -470,6 +512,7 @@ int main(void)
     if ((uint32_t)(now - last_telemetry_tick) >= TELEMETRY_INTERVAL_MS)
     {
       char str_i[14], str_j[14], str_k[14], str_real[14];
+      char str_ax[14], str_ay[14], str_az[14];
       uint32_t voltage_mv;
       int32_t bend_pct;
 
@@ -497,16 +540,43 @@ int main(void)
         FormatQuatComponent(str_j, sizeof(str_j), quat_j);
         FormatQuatComponent(str_k, sizeof(str_k), quat_k);
         FormatQuatComponent(str_real, sizeof(str_real), quat_real);
+      }
+      if (bno_connected && accel_valid)
+      {
+        FormatAccelComponent(str_ax, sizeof(str_ax), accel_x);
+        FormatAccelComponent(str_ay, sizeof(str_ay), accel_y);
+        FormatAccelComponent(str_az, sizeof(str_az), accel_z);
+      }
+
+      if (bno_connected && quat_valid && accel_valid)
+      {
         snprintf(tx_buf, sizeof(tx_buf),
-                 "Volt: %lu.%03lu V | Bend: %3ld%% | Quat: [i:%s j:%s k:%s real:%s]\r\n",
+                 "Volt: %lu.%03lu V | Bend: %3ld%% | Quat: [i:%s j:%s k:%s real:%s] | Accel (m/s^2): [ax:%s ay:%s az:%s]\r\n",
+                 (unsigned long)(voltage_mv / 1000UL),
+                 (unsigned long)(voltage_mv % 1000UL),
+                 (long)bend_pct, str_i, str_j, str_k, str_real,
+                 str_ax, str_ay, str_az);
+      }
+      else if (bno_connected && quat_valid)
+      {
+        snprintf(tx_buf, sizeof(tx_buf),
+                 "Volt: %lu.%03lu V | Bend: %3ld%% | Quat: [i:%s j:%s k:%s real:%s] | Accel: waiting\r\n",
                  (unsigned long)(voltage_mv / 1000UL),
                  (unsigned long)(voltage_mv % 1000UL),
                  (long)bend_pct, str_i, str_j, str_k, str_real);
       }
+      else if (bno_connected && accel_valid)
+      {
+        snprintf(tx_buf, sizeof(tx_buf),
+                 "Volt: %lu.%03lu V | Bend: %3ld%% | Quat: waiting | Accel (m/s^2): [ax:%s ay:%s az:%s]\r\n",
+                 (unsigned long)(voltage_mv / 1000UL),
+                 (unsigned long)(voltage_mv % 1000UL),
+                 (long)bend_pct, str_ax, str_ay, str_az);
+      }
       else if (bno_connected)
       {
         snprintf(tx_buf, sizeof(tx_buf),
-                 "Volt: %lu.%03lu V | Bend: %3ld%% | BNO085: FOUND, waiting for quaternion\r\n",
+                 "Volt: %lu.%03lu V | Bend: %3ld%% | BNO085: FOUND, waiting for sensor data\r\n",
                  (unsigned long)(voltage_mv / 1000UL),
                  (unsigned long)(voltage_mv % 1000UL),
                  (long)bend_pct);
@@ -550,6 +620,24 @@ int main(void)
           if (can_status != HAL_OK)
           {
             UART_Print("MCP2515: quaternion CAN frame transmit failed\r\n");
+          }
+        }
+
+        if (bno_connected && accel_valid)
+        {
+          uint8_t acceleration_data[8] = {0};
+          MCP2515_StoreInt16LE(&acceleration_data[0],
+                               MCP2515_ScaleAcceleration(accel_x));
+          MCP2515_StoreInt16LE(&acceleration_data[2],
+                               MCP2515_ScaleAcceleration(accel_y));
+          MCP2515_StoreInt16LE(&acceleration_data[4],
+                               MCP2515_ScaleAcceleration(accel_z));
+          can_status = MCP2515_SendFrame(MCP2515_CAN_ID_ACCELERATION,
+                                         acceleration_data,
+                                         sizeof(acceleration_data));
+          if (can_status != HAL_OK)
+          {
+            UART_Print("MCP2515: acceleration CAN frame transmit failed\r\n");
           }
         }
       }

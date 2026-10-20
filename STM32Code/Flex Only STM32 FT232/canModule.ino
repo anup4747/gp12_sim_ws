@@ -14,6 +14,7 @@ struct can_frame canMsg;
 
 static const uint16_t CAN_ID_QUATERNION = 0x100;
 static const uint16_t CAN_ID_FLEX = 0x101;
+static const uint16_t CAN_ID_ACCELERATION = 0x102;
 
 static int16_t readInt16LE(const uint8_t *data)
 {
@@ -80,6 +81,22 @@ static void printQuaternionPacket(const struct can_frame &frame)
     Serial.println(real, 4);
 }
 
+static void printAccelerationPacket(const struct can_frame &frame)
+{
+    float ax = readInt16LE(&frame.data[0]) / 100.0f;
+    float ay = readInt16LE(&frame.data[2]) / 100.0f;
+    float az = readInt16LE(&frame.data[4]) / 100.0f;
+
+    Serial.println("=== BNO085 Acceleration Packet (CAN ID 0x102) ===");
+    Serial.print("ax: ");
+    Serial.print(ax, 2);
+    Serial.print("  ay: ");
+    Serial.print(ay, 2);
+    Serial.print("  az: ");
+    Serial.print(az, 2);
+    Serial.println(" m/s^2");
+}
+
 void setup()
 {
     Serial.begin(115200);
@@ -122,6 +139,10 @@ void loop()
         else if (canMsg.can_id == CAN_ID_QUATERNION)
         {
             printQuaternionPacket(canMsg);
+        }
+        else if (canMsg.can_id == CAN_ID_ACCELERATION)
+        {
+            printAccelerationPacket(canMsg);
         }
         else
         {
