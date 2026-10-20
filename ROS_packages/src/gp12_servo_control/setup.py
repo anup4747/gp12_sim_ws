@@ -1,8 +1,6 @@
-import os
-from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'gp_12_trial'
+package_name = 'gp12_servo_control'
 
 setup(
     name=package_name,
@@ -12,13 +10,11 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*.launch.py'))),
     ],
-    scripts=['script/pick_place.py'],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='janhavi',
-    maintainer_email='janhavi@todo.todo',
+    maintainer='anup',
+    maintainer_email='anupdtarwade@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
@@ -27,7 +23,8 @@ setup(
         ],
     },
     entry_points={
-        'console_scripts': [
-        ],
+         'console_scripts': [
+        	'manual_jog = gp12_servo_control.manual_jog:main',
+    	],
     },
 )

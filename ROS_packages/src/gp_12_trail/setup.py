@@ -2,7 +2,7 @@ import os
 from glob import glob
 from setuptools import find_packages, setup
 
-package_name = 'gp12_imu_control'
+package_name = 'gp_12_trail'
 
 setup(
     name=package_name,
@@ -12,14 +12,15 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*')))
+        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*.launch.py'))),
     ],
+    scripts=['script/pick_place.py'],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='anup',
-    maintainer_email='anupdtarwade@gmail.com',
-    description='Android IMU integration with GP12 MoveIt',
-    license='Apache-2.0',
+    maintainer='janhavi',
+    maintainer_email='janhavi@todo.todo',
+    description='TODO: Package description',
+    license='TODO: License declaration',
     extras_require={
         'test': [
             'pytest',
@@ -27,8 +28,6 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'hyperimu_bridge = gp12_imu_control.hyperimu_bridge:main',
-            'imu_to_moveit = gp12_imu_control.imu_to_moveit:main'
         ],
     },
 )
