@@ -2,7 +2,7 @@
 <robot name="robotiq_test" xmlns:xacro="http://ros.org/wiki/xacro">
 
   <!-- include gripper -->
-  <xacro:include filename="$(find gp12_simulation)/urdf/robotiq_2f_140.xacro"/>
+  <xacro:include filename="$(find gp_12_trail)/urdf/robotiq_2f_140.xacro"/>
 
   <!-- world -->
   <link name="world"/>

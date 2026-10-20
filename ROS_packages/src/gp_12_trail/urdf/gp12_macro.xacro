@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 <xacro:macro name="motoman_gp12" params="prefix">
-    <xacro:include filename="$(find gp12_simulation)/urdf/common_materials.xacro"/>
+    <xacro:include filename="$(find gp_12_trail)/urdf/common_materials.xacro"/>
 
     <!-- link list -->
     <link name="${prefix}base_link">
@@ -12,13 +12,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_base_link.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_base_link.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_base_link.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_base_link.stl"/>
             </geometry>
         </collision>
     </link>
@@ -30,13 +30,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_link_1_s.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_link_1_s.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_link_1_s.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_link_1_s.stl"/>
             </geometry>
         </collision>
     </link>
@@ -48,13 +48,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_link_2_l.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_link_2_l.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_link_2_l.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_link_2_l.stl"/>
             </geometry>
         </collision>
     </link>
@@ -66,13 +66,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_link_3_u.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_link_3_u.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_link_3_u.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_link_3_u.stl"/>
             </geometry>
         </collision>
     </link>
@@ -84,13 +84,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_link_4_r.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_link_4_r.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_link_4_r.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_link_4_r.stl"/>
             </geometry>
         </collision>
     </link>
@@ -102,13 +102,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_link_5_b.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_link_5_b.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_link_5_b.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_link_5_b.stl"/>
             </geometry>
         </collision>
     </link>
@@ -120,13 +120,13 @@
         </inertial>
         <visual>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/visual/gp12_link_6_t.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/visual/gp12_link_6_t.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://gp12_simulation/meshes/collision/gp12_link_6_t.stl"/>
+                <mesh filename="package://gp_12_trail/meshes/collision/gp12_link_6_t.stl"/>
             </geometry>
         </collision>
     </link>

@@ -10,7 +10,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://gp12_simulation/meshes/visual/robotiq_arg2f_base_link.stl" />
+          <mesh filename="package://gp_12_trail/meshes/visual/robotiq_arg2f_base_link.stl" />
         </geometry>
         <material name="">
           <color rgba="0.1 0.1 0.1 1" />
@@ -19,7 +19,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://gp12_simulation/meshes/collision/robotiq_arg2f_base_link.stl" />
+          <mesh filename="package://gp_12_trail/meshes/collision/robotiq_arg2f_base_link.stl" />
         </geometry>
       </collision>
     </link>
